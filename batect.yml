@@ -1,0 +1,17 @@
+containers:
+  build-container:
+    build_directory: ./.docker/build
+    volumes:
+      - local: ./build
+        container: /home
+      - local: ./scripts
+        container: /tmp/scripts
+    environment:
+      PASSPHRASE: tw123456
+
+tasks:
+  build:
+    description: Build genesis.json
+    run:
+      container: build-container
+      command: bash /tmp/scripts/build.sh
