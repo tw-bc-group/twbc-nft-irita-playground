@@ -15,6 +15,7 @@ services:
     image: bianjie/irita:v3.0.0
     ports:
     - "26656-26657:26656-26657"
+    - "26757:1317"
     volumes:
     - ./build:/home
     command: /bin/bash -c 'cd /home/nodecluster/node0 && irita start --home irita'
@@ -27,6 +28,7 @@ services:
     image: bianjie/irita:v3.0.0
     ports:
     - "26659-26660:26656-26657"
+    - "26760:1317"
     volumes:
     - ./build:/home
     command: /bin/bash -c 'cd /home/nodecluster/node1 && irita start --home irita'
@@ -39,6 +41,7 @@ services:
     image: bianjie/irita:v3.0.0
     ports:
     - "26661-26662:26656-26657"
+    - "26762:1317"
     volumes:
     - ./build:/home
     command: /bin/bash -c 'cd /home/nodecluster/node2 && irita start --home irita'
@@ -51,6 +54,7 @@ services:
     image: bianjie/irita:v3.0.0
     ports:
     - "26663-26664:26656-26657"
+    - "26764:1317"
     volumes:
     - ./build:/home
     command: /bin/bash -c 'cd /home/nodecluster/node3 && irita start --home irita'
