@@ -9,9 +9,55 @@ containers:
     environment:
       PASSPHRASE: tw123456
 
+  irita-node-0:
+    image: bianjie/irita:v3.0.0
+    ports:
+    - "26656-26657:26656-26657"
+    - "1317:1317"
+    volumes:
+    - ./build:/home
+    command: /bin/bash -c 'cd /home/nodecluster/node0 && irita start --home irita'
+
+  irita-node-1:
+    image: bianjie/irita:v3.0.0
+    ports:
+    - "26756-26757:26656-26657"
+    volumes:
+    - ./build:/home
+    command: /bin/bash -c 'cd /home/nodecluster/node1 && irita start --home irita'
+
+  irita-node-2:
+    image: bianjie/irita:v3.0.0
+    ports:
+    - "26856-26857:26656-26657"
+    volumes:
+    - ./build:/home
+    command: /bin/bash -c 'cd /home/nodecluster/node2 && irita start --home irita'
+
+  irita-node-3:
+    image: bianjie/irita:v3.0.0
+    ports:
+    - "26956-26957:26656-26657"
+    volumes:
+    - ./build:/home
+    command: /bin/bash -c 'cd /home/nodecluster/node3 && irita start --home irita'
+
 tasks:
   build:
     description: Build genesis.json
     run:
       container: build-container
       command: bash /tmp/scripts/build.sh
+
+  start:
+    prerequisites:
+      - build
+    description: run irita nodes
+    dependencies:
+      - irita-node-0
+      - irita-node-1
+      - irita-node-2
+      - irita-node-3
+    run:
+      container: build-container
+      command: /bin/bash
