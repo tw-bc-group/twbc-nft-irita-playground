@@ -19,3 +19,8 @@ tasks:
       command: bash /scripts/build.sh
       environment:
         FORCE_BUILD: true
+
+  start:
+    run:
+      container: irita-workspace
+      command: bash
