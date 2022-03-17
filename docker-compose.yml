@@ -49,7 +49,9 @@ services:
     networks:
       localnet:
         ipv4_address: 192.168.10.5
+
   irita-workspace:
+    container_name: irita-workspace
     build: ./.docker/build
     volumes:
       - ./build:/home
@@ -58,7 +60,18 @@ services:
       localnet:
         ipv4_address: 192.168.10.6
     command: tail -F anything
+    working_dir: /home/nodecluster
 
+  metadata-httpd:
+    container_name: metadata-httpd
+    image: httpd:2.4
+    ports:
+      - "8080:80"
+    networks:
+      localnet:
+        ipv4_address: 192.168.10.7
+    volumes:
+      - ./metadata/:/usr/local/apache2/htdocs/
 networks:
   localnet:
     driver: bridge
