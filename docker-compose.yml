@@ -65,13 +65,22 @@ services:
   metadata-httpd:
     container_name: metadata-httpd
     image: httpd:2.4
-    ports:
-      - "8080:80"
     networks:
       localnet:
         ipv4_address: 192.168.10.7
     volumes:
       - ./metadata/:/usr/local/apache2/htdocs/
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger-ui
+    ports:
+      - "8001:8080"
+    volumes:
+      - ./swagger:/usr/share/nginx/html/swagger
+    environment:
+      API_URL: swagger/api.yaml
+
 networks:
   localnet:
     driver: bridge
