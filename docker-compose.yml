@@ -1,0 +1,68 @@
+version: '3'
+
+services:
+  irisnode0:
+    container_name: iritanode0
+    image: bianjie/irita:v3.0.0
+    ports:
+    - "26656-26657:26656-26657"
+    - "1317:1317"
+    volumes:
+    - ./build:/home
+    command: /bin/bash -c 'cd /home/nodecluster/node0 && irita start --home irita'
+    networks:
+      localnet:
+        ipv4_address: 192.168.10.2
+
+  irisnode1:
+    container_name: iritanode1
+    image: bianjie/irita:v3.0.0
+    ports:
+    - "26756-26757:26656-26657"
+    volumes:
+    - ./build:/home
+    command: /bin/bash -c 'cd /home/nodecluster/node1 && irita start --home irita'
+    networks:
+      localnet:
+        ipv4_address: 192.168.10.3
+
+  irisnode2:
+    container_name: iritanode2
+    image: bianjie/irita:v3.0.0
+    ports:
+    - "26856-26857:26656-26657"
+    volumes:
+    - ./build:/home
+    command: /bin/bash -c 'cd /home/nodecluster/node2 && irita start --home irita'
+    networks:
+      localnet:
+        ipv4_address: 192.168.10.4
+
+  irisnode3:
+    container_name: iritanode3
+    image: bianjie/irita:v3.0.0
+    ports:
+    - "26956-26957:26656-26657"
+    volumes:
+    - ./build:/home
+    command: /bin/bash -c 'cd /home/nodecluster/node3 && irita start --home irita'
+    networks:
+      localnet:
+        ipv4_address: 192.168.10.5
+  irita-workspace:
+    build: ./.docker/build
+    volumes:
+      - ./build:/home
+      - ./scripts:/scripts
+    networks:
+      localnet:
+        ipv4_address: 192.168.10.6
+    command: tail -F anything
+
+networks:
+  localnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 192.168.10.0/16
